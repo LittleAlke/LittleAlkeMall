@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view/>
+    <MainTabBar/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MainTabBar from "components/content/mainTabbar/MainTabBar";
+import {getHomeMultidata} from "network/home";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MainTabBar,
+  },
+  data(){
+    return{
+      result: null
+    }
+  },
+  created() {
+    // 1. 请求多个数据
+    getHomeMultidata().then(res => {
+      console.log(res)
+      this.result = res;
+    })
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "assets/css/base.css";
 </style>
